@@ -5,7 +5,8 @@ Bootstrap provides a faster way to build common UI components with less effort.
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  //purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  // The above line was causing an error.
   darkMode: false, // or 'media' or 'class'
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
