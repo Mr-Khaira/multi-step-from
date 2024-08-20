@@ -45,7 +45,6 @@ export default function Page() {
     reset();
   }
 
-  console.log(touchedFields.email);
   return (
     <div className="flex flex-col justify-center items-center h-dvh">
       <div className=" flex flex-col items-center border-2 border-gray-900 p-4 rounded-md h-auto max-w-72">
