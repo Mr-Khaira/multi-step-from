@@ -85,7 +85,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new CredentialsSignin("Please verify your email before login.");
         }
         // return user; Not this because it includes the password also.
-        return { name: user.name, email: user.email, id: user._id };
+        return { username: user.name, email: user.email, id: user._id };
       },
       /*
       The authorize function is passed to the Credentials Provider configuration in 

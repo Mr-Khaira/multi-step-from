@@ -86,11 +86,20 @@ export default function Page() {
               <p className="text-red-600 w-fit"> {passwordError}</p>
             )
           )}
-          <button
-            type="submit"
-            className="bg-black text-white w-full m-2 p-1 rounded-md">
-            Log in
-          </button>
+          {passwordError || emailError ? (
+            <button
+              type="submit"
+              className="bg-black text-white w-full m-2 p-1 rounded-md disabled:bg-gray-400 disabled:cursor-not-allowed"
+              disabled>
+              Log in
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="bg-black text-white w-full m-2 p-1 rounded-md ">
+              Log in
+            </button>
+          )}
         </form>
         <div className="mb-2">or</div>
         <form className="bg-black text-white text-center  w-full p-1 rounded-md">

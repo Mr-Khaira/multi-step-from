@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import singupAction from "../actions/singupAction";
 
 function emailErrorCheck(currentValue) {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -55,9 +56,7 @@ export default function Page() {
 
         It must be done on server and must be a async function.
          */}
-        <form
-          className="flex flex-col items-center"
-          onSubmit={handleSubmit(onSubmit)}>
+        <form action={singupAction} className="flex flex-col items-center">
           <label className="text-4xl ml-4 self-start">Signup</label>
 
           <input
@@ -104,15 +103,25 @@ export default function Page() {
           {errors.password ? (
             <p className="text-red-600 ">{errors.password.message}</p>
           ) : (
+            touchedFields.password &&
             passwordError != "" && (
               <p className="text-red-600 w-fit"> {passwordError}</p>
             )
           )}
-          <button
-            type="submit"
-            className="bg-black text-white w-full m-2 p-1 rounded-md">
-            Sign up
-          </button>
+          {passwordError || emailError ? (
+            <button
+              type="submit"
+              className="bg-black text-white w-full m-2 p-1 rounded-md disabled:bg-gray-400 disabled:cursor-not-allowed"
+              disabled>
+              Sign up
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="bg-black text-white w-full m-2 p-1 rounded-md">
+              Sign up
+            </button>
+          )}
         </form>
         <div className="mb-2">or</div>
         <form className="bg-black text-white text-center  w-full p-1 rounded-md">
