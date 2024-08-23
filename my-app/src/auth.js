@@ -12,19 +12,20 @@ Auth.js has a set of supported actions defined in the AuthAction type. These inc
 providers: Is an array where you specify the authentication providers you want to use (e.g., Google, GitHub, Facebook).
 */
 import NextAuth, { CredentialsSignin } from "next-auth";
-import google from "next-auth/providers/google";
-import credentials from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from "./models/UserModel";
-import { compare, compareSync } from "bcryptjs";
-// CredentialsProvider for people who do not want to use social media.
+import { compare } from "bcryptjs";
+import connectToDb from "./helpers/utils";
+// CredentialsProvider for users who do not want to use social media.
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
-    google({
+    GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    credentials({
+    CredentialsProvider({
       name: "Credentials",
       credentials: {
         // username: {
@@ -45,47 +46,57 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         /*The function should return a user object if the credentials are valid or 
       null if they are not.*/
-        console.log("The email in credentials of auth.js, ", credentials.email);
-        console.log(
-          "The password in credentials of auth.js, ",
-          credentials.password
-        );
+        // console.log("The email in credentials of auth.js, ", credentials.email);
+        // console.log(
+        //   "The password in credentials of auth.js, ",
+        //   credentials.password
+        // );
 
         const email = credentials.email;
         const password = credentials.password;
 
-        if (typeof email !== "string" && password != "passcode") {
-          throw new CredentialsSignin("Invalid email or password type.");
+        if (!email || !password) {
+          throw new CredentialsSignin("Please provide email and password");
           //throw new CredentialsSignin({ cause: "Email not valid" });
           //This approach passes an object with additional context or metadata about
           //the error, specifically with a cause property.
           // This error typically indicates that the authentication attempt with the
           // provided credentials has failed.
-        } else {
         }
 
+        await connectToDb();
         const user = await User.findOne({ email }).select("+password"); // password exclided by default, check src/models/UserModel.js
 
         if (!user)
-          throw new CredentialsSignin("Invalid email or password type.");
+          throw new CredentialsSignin({ cause: "Invalid email or password." });
 
         if (!user.password) {
-          throw new CredentialsSignin("Invalid email or password type.");
+          throw new CredentialsSignin({ cause: "Invalid email or password." });
           // This is the case for the user must have signed-up using google, hence, no password
           // So we give a error message and not tell the user they had used google, for security.
         }
 
-        const passwordMatched = compare(password, user.password); //bool
-
+        const passwordMatched = await compare(password, user.password); // vompare returns bool
+        console.log("passwordMatched", passwordMatched);
         if (!passwordMatched) {
-          throw new CredentialsSignin("Invalid email or password type.");
+          throw new CredentialsSignin({ cause: "Invalid email or password." });
         }
 
-        if (!user.isVerified) {
-          throw new CredentialsSignin("Please verify your email before login.");
-        }
+        // if (!user.isVerified) {
+        //   throw new CredentialsSignin("Please verify your email before login.");
+        // }
         // return user; Not this because it includes the password also.
-        return { username: user.name, email: user.email, id: user._id };
+
+        return { username: user.username, email: user.email, id: user._id };
+        /*
+        The user object was only returning the email because :-
+        By default, NextAuth only includes minimal user information in the session, 
+        typically the user's email. Other fields, like username or id, are not 
+        automatically included unless you explicitly configure the session callback to 
+        include them.
+
+        Hence we configer the callbacks below :-
+        */
       },
       /*
       The authorize function is passed to the Credentials Provider configuration in 
@@ -98,7 +109,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // keep credentials empty if you are only using username and password.
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.username = user.username;
+        token.id = user.id;
+      }
+      //console.log(token);
+      return token;
+    },
+    async session({ session, token, user }) {
+      if (session.user) {
+        session.user.username = token.username;
+        session.user.id = token.id;
+      }
+
+      return session;
+    },
+
+    /*
+When using JSON Web Tokens the jwt() callback is invoked before the session() callback,
+so anything you add to the JSON Web Token will be immediately available in the session
+callback, like for example an access_token or id from a provider.
+But that dosnt necesserly mean the session will include it, if you want specific data
+you have to define the session callback.
+*/
+  },
   pages: {
-    singIn: "/login",
+    signIn: "/login",
   },
 });
