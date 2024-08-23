@@ -3,22 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 
-function emailErrorCheck(currentValue) {
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!emailPattern.test(currentValue)) {
-    return "Must be a valid email";
-  }
-}
-
-function passwordErrorCheck(currentValue) {
-  const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).*$/;
-  if (currentValue.length < 8) {
-    return "Password must be at least 8 characters.";
-  }
-  if (!passwordPattern.test(currentValue)) {
-    return "Password must contain atlease a special character and a capital letter.";
-  }
-}
+import { emailErrorCheck } from "@/helpers/utils";
+import LoginHandler from "../actions/loginAction";
 
 export default function Page() {
   const [emailError, setEmailError] = useState("");
@@ -34,29 +20,29 @@ export default function Page() {
 
   useEffect(() => {
     const subscription = watch((value) => {
-      setEmailError(emailErrorCheck(value.email));
-      setPasswordError(passwordErrorCheck(value.password));
+      if (value.email) {
+        setEmailError(emailErrorCheck(value.email));
+      }
     });
 
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  function onSubmit(email, password) {
-    reset();
-  }
+  // function onSubmit(event) {
+  //   reset();
+  // }
 
   return (
     <div className="flex flex-col justify-center items-center h-dvh">
       <div className=" flex flex-col items-center border-2 border-gray-900 p-4 rounded-md h-auto max-w-72">
-        <form
-          className="flex flex-col items-center"
-          onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col items-center" onSubmit={LoginHandler}>
           <label className="text-4xl ml-4 self-start">Login</label>
 
           <input
             className="border-gray-900 m-3 input"
             placeholder="Email"
             type="email"
+            name="email"
             {...register("email", {
               required: "Email is required",
             })}
@@ -75,6 +61,7 @@ export default function Page() {
             className="border-gray-900 m-3 input"
             placeholder="password"
             type="password"
+            name="password"
             {...register("password", {
               required: "Password is required",
             })}

@@ -98,4 +98,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // keep credentials empty if you are only using username and password.
     }),
   ],
+  pages: {
+    singIn: "/login",
+  },
 });
