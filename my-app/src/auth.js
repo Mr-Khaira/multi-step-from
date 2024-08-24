@@ -11,7 +11,7 @@ Auth.js has a set of supported actions defined in the AuthAction type. These inc
 
 providers: Is an array where you specify the authentication providers you want to use (e.g., Google, GitHub, Facebook).
 */
-import NextAuth, { CredentialsSignin } from "next-auth";
+import NextAuth, { AuthError, CredentialsSignin } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from "./models/UserModel";
@@ -126,7 +126,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return session;
     },
+    async signIn({ user, account, profile, email }) {
+      if (account?.provider === "google") {
+        try {
+          //console.log("User in google singin", user);
+          const { email, name, id } = user;
 
+          await connectToDb();
+
+          const alredyExist = await User.findOne({ email });
+          if (!alredyExist) {
+            await User.create({ email, username: name, googleId: id });
+          } else {
+            return true;
+          }
+        } catch (error) {
+          console.error("Detailed AuthError:", error);
+          throw new AuthError(
+            "Error while creating user in Google Signin callback",
+            error.message
+          );
+        }
+      }
+      if (account?.provider === "credentials") {
+        return true;
+      }
+      return false;
+    },
     /*
 When using JSON Web Tokens the jwt() callback is invoked before the session() callback,
 so anything you add to the JSON Web Token will be immediately available in the session

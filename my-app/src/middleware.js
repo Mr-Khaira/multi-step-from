@@ -10,4 +10,21 @@ every time its called.
 
 
 */
-export { auth as middleware } from "@/auth";
+//export { auth as middleware } from "@/auth";
+
+import { NextResponse } from "next/server";
+import { auth } from "./auth";
+
+export async function middleware(req) {
+  const session = await auth();
+
+  //console.log("in mdw", session);
+  if (session?.user) {
+    return NextResponse.redirect(new URL("/", req.url)); // ("to","the base url")
+  }
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: "/login",
+};

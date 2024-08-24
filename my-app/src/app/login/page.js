@@ -6,8 +6,12 @@ import Link from "next/link";
 import { emailErrorCheck } from "@/helpers/utils";
 import LoginHandler from "../actions/loginAction";
 import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
+import googleLoginAction from "../actions/googleLoginAction";
 
 export default function Page() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -43,6 +47,7 @@ export default function Page() {
               });
             } else {
               toast.success("Login Successful!", { position: "top-center" });
+              router.refresh();
             }
           }}>
           <label className="text-4xl ml-4 self-start">Login</label>
@@ -83,7 +88,9 @@ export default function Page() {
           )}
         </form>
         <div className="mb-2">or</div>
-        <form className="bg-black text-white text-center  w-full p-1 rounded-md">
+        <form
+          className="bg-black text-white text-center  w-full p-1 rounded-md"
+          action={googleLoginAction}>
           <button type="submit">Login with google</button>
         </form>
         <footer className="mt-3">

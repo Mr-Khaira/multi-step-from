@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
 
   Can be accessed by .select("+password");
   */,
+  image: { trpe: String },
   isVerified: { type: Boolean, default: false }, // Email verification.
   googleId: { type: String },
 });
