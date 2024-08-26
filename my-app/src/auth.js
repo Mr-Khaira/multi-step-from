@@ -85,8 +85,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // if (!user.isVerified) {
         //   throw new CredentialsSignin("Please verify your email before login.");
         // }
-        // return user; Not this because it includes the password also.
 
+        // return user; Not this because it includes the password also.
         return { username: user.username, email: user.email, id: user._id };
         /*
         The user object was only returning the email because :-
@@ -127,6 +127,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async signIn({ user, account, profile, email }) {
+      console.log("profile", profile);
       if (account?.provider === "google") {
         try {
           //console.log("User in google singin", user);

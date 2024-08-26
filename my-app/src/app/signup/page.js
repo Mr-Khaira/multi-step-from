@@ -7,6 +7,7 @@ import Link from "next/link";
 import singupAction from "../actions/singupAction";
 import { passwordErrorCheck, emailErrorCheck } from "@/helpers/utils";
 import { toast, ToastContainer } from "react-toastify";
+import googleLoginAction from "../actions/googleLoginAction";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -121,7 +122,9 @@ export default function Page() {
           )}
         </form>
         <div className="mb-2">or</div>
-        <form className="bg-black text-white text-center  w-full p-1 rounded-md">
+        <form
+          className="bg-black text-white text-center  w-full p-1 rounded-md"
+          action={googleLoginAction}>
           <button type="submit">Signup with google</button>
         </form>
         <footer className="mt-3">
