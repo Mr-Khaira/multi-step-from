@@ -2,12 +2,12 @@
 // Note - RFC validations donst work well with form actions.
 
 import React, { useActionState, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
 import singupAction from "../actions/singupAction";
 import { passwordErrorCheck, emailErrorCheck } from "@/helpers/utils";
 import { toast, ToastContainer } from "react-toastify";
 import googleLoginAction from "../actions/googleLoginAction";
+import Image from "next/image";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -123,8 +123,13 @@ export default function Page() {
         </form>
         <div className="mb-2">or</div>
         <form
-          className="bg-black text-white text-center  w-full p-1 rounded-md"
+          className="bg-black text-white text-center  w-full  rounded-md flex justify-center"
           action={googleLoginAction}>
+          <Image
+            className="mr-3 p-1"
+            src={"/google.png"}
+            width={30}
+            height={30}></Image>
           <button type="submit">Signup with google</button>
         </form>
         <footer className="mt-3">

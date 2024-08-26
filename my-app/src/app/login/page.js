@@ -8,6 +8,7 @@ import LoginHandler from "../actions/loginAction";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import googleLoginAction from "../actions/googleLoginAction";
+import Image from "next/image";
 
 export default function Page() {
   const router = useRouter();
@@ -89,8 +90,13 @@ export default function Page() {
         </form>
         <div className="mb-2">or</div>
         <form
-          className="bg-black text-white text-center  w-full p-1 rounded-md"
+          className="bg-black text-white text-center  w-full p-1 rounded-md flex justify-center"
           action={googleLoginAction}>
+          <Image
+            className="mr-3 p-1"
+            src={"/google.png"}
+            width={30}
+            height={30}></Image>
           <button type="submit">Login with google</button>
         </form>
         <footer className="mt-3">
