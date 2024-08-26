@@ -29,14 +29,16 @@ export default async function Home() {
   return (
     <>
       {user ? (
-        <h1>
-          Hello {user.name}, this is the home page. The email is, {user.email}.
-          Thanks for signing up.
+        <h1 className="text-xl p-4">
+          Hello {user.name}, this is the home page.
+          <br />
+          The email is, {user.email}. Thanks for signing up 😀
         </h1>
       ) : (
-        <h1>
+        <h1 className="text-xl p-4">
           Hello, once logged in, user name and email will be displayed here,
-          indicating valid session. 😀
+          <br />
+          indicating valid session 😀
         </h1>
       )}
     </>

@@ -26,5 +26,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: "/login",
+  matcher: ["/login", "/signup"],
 };
