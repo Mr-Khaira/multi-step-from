@@ -165,3 +165,5 @@ you have to define the session callback.
     signIn: "/login",
   },
 });
+
+//Make sign in with google, and also redirection of both signin and login with google.
