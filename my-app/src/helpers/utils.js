@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
+/*
+Dynamic Code Evaluation (e. g. 'eval', 'new Function', 'WebAssembly.compile') not allowed in Edge Runtime 
+*/
 
 export default async function connectToDb() {
   try {
