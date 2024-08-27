@@ -15,6 +15,7 @@ These is discussed here only for the sake of knowledge.
 export default async function Home() {
   const session = await auth();
   const user = session?.user;
+  console.log(session);
   // This is how it would be done on the backend.
   // const cookiees = cookies().get("authjs.session-token"); // Getting the cookie.
   // // Once we have the cookie we will decode it's value.
@@ -30,7 +31,7 @@ export default async function Home() {
     <>
       {user ? (
         <h1 className="text-xl p-4">
-          Hello {user.name}, this is the home page.
+          Hello {user.username}, this is the home page.
           <br />
           The email is, {user.email}. Thanks for signing up 😀
         </h1>

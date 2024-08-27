@@ -8,8 +8,13 @@ import { passwordErrorCheck, emailErrorCheck } from "@/helpers/utils";
 import { toast, ToastContainer } from "react-toastify";
 import googleLoginAction from "../actions/googleLoginAction";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import verificationEmail from "@/helpers/verificationEmail";
+// import { setTimeout } from "timers/promises";
 
 export default function Page() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,8 +35,7 @@ export default function Page() {
       <div className=" flex flex-col items-center border-2 border-gray-900 p-4 rounded-md h-auto max-w-72">
         {/*
           When invoked in a form, the action automatically receives the FormData
-          object. You don't need to use React useState to manage fields, instead, you can
-          extract the data using the native FormData methods.
+          object. You don't need to use React useState to manage fields, instead, you can extract the data using the native FormData methods.
 
           It must be done on server and must be a async function.
           */}
@@ -52,19 +56,26 @@ export default function Page() {
               }
 
               const result = await singupAction(username, email, password);
+              // console.log("result.message", result);
               if (result.message) {
                 toast.error(result.message, {
                   position: "top-center",
+                  autoClose: 3000,
                 });
               } else {
-                toast.success("Registration successfull!", {
+                toast.success("Verification mail has been sent!", {
                   position: "top-center",
                 });
+
+                await verificationEmail(email);
+
+                setTimeout(() => {
+                  router.push("/login");
+                }, 3000);
               }
               //reset();
             } catch (error) {
-              setFormAction(error.message);
-              throw new Error(error);
+              //throw new Error(error);
             }
           }}
           className="flex flex-col items-center">

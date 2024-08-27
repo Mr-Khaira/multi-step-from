@@ -3,7 +3,6 @@
 import connectToDb from "@/helpers/utils";
 import { User } from "@/models/UserModel";
 import { hash } from "bcryptjs";
-import { redirect } from "next/navigation";
 
 export default async function singupAction(username, email, password) {
   //console.log("Inside signupAction", username, email, password);
@@ -24,6 +23,6 @@ export default async function singupAction(username, email, password) {
     email,
     password: hashedPswd,
   });
-
-  redirect("/login");
+  return true;
+  //redirect("/login");
 }

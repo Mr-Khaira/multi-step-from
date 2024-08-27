@@ -1,27 +1,31 @@
-"use client";
-
 import Link from "next/link";
-import SignOutBtn from "./signOutBtn";
+import signoutAction from "@/app/actions/signoutAction";
+import { auth } from "@/auth";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await auth();
+  const user = session?.user;
+
   return (
     <div className="bg-black text-white flex w-full">
-      <div className="p-1 self-start w-1/2">
-        <Link href={"/"}>
-          <button className="underline p-1">Complete oAuth</button>
-        </Link>
-      </div>
+      <Link href={"/"} className="p-1 self-start w-1/2">
+        <button className="underline p-1">Complete oAuth</button>
+      </Link>
+      <Link href={"/login"}>
+        <button className="underline p-1">Login</button>
+      </Link>
+      <Link href={"/signup"}>
+        <button className="underline p-1">Signup</button>
+      </Link>
       <div>
-        <Link href={"/login"}>
-          <button className="underline p-1">Login</button>
-        </Link>
+        {user && (
+          <form action={signoutAction}>
+            <button className="underline p-1" type="submit">
+              signOut
+            </button>
+          </form>
+        )}
       </div>
-      <div>
-        <Link href={"/signup"}>
-          <button className="underline p-1">Signup</button>
-        </Link>
-      </div>
-      <SignOutBtn />
     </div>
   );
 }

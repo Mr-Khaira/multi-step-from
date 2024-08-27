@@ -9,3 +9,12 @@ To use the handlers in your API routes, you would typically create a file like
 */
 import { handlers } from "@/auth"; // Referring to the auth.ts we just created
 export const { GET, POST } = handlers;
+
+/*
+Example :-
+User Tries to Sign In with Google:
+  The user clicks a "Sign in with Google" button.
+  This triggers a POST request to /api/auth/signin/google.
+  The POST handler in route.js calls the Google OAuth provider inside auth.js, which 
+  handles the OAuth flow and redirects the user accordingly.
+*/

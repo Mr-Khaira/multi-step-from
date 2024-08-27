@@ -70,21 +70,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!user)
           throw new CredentialsSignin({ cause: "Invalid email or password." });
 
+        if (!user.isVerified) {
+          throw new CredentialsSignin({
+            cause: "Please verify your email before login.",
+          });
+        }
+
         if (!user.password) {
           throw new CredentialsSignin({ cause: "Invalid email or password." });
           // This is the case for the user must have signed-up using google, hence, no password
           // So we give a error message and not tell the user they had used google, for security.
         }
 
-        const passwordMatched = await compare(password, user.password); // vompare returns bool
+        const passwordMatched = await compare(password, user.password); // compare returns bool
         console.log("passwordMatched", passwordMatched);
         if (!passwordMatched) {
           throw new CredentialsSignin({ cause: "Invalid email or password." });
         }
-
-        // if (!user.isVerified) {
-        //   throw new CredentialsSignin("Please verify your email before login.");
-        // }
 
         // return user; Not this because it includes the password also.
         return { username: user.username, email: user.email, id: user._id };
