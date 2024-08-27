@@ -31,7 +31,8 @@ export default async function Home() {
     <>
       {user ? (
         <h1 className="text-xl p-4">
-          Hello {user.username}, this is the home page.
+          Hello {user.username ? user.username : user.name}, this is the home
+          page.
           <br />
           The email is, {user.email}. Thanks for signing up 😀
         </h1>

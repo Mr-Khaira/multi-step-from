@@ -37,10 +37,12 @@ export default async function verificationEmail(email) {
 
     await transpoter.sendMail(mailOptions, function (error) {
       if (error) {
-        console.log("Error in sending email", error);
+        //console.log("Error in sending email", error);
+        throw new Error("Error in sending email", error);
       }
     });
   } catch (error) {
-    console.log("Error in sending email", error);
+    //console.log("Error in sending email", error);
+    throw new Error("Error in sending email", error);
   }
 }

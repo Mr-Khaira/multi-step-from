@@ -83,7 +83,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const passwordMatched = await compare(password, user.password); // compare returns bool
-        console.log("passwordMatched", passwordMatched);
+        //console.log("passwordMatched", passwordMatched);
         if (!passwordMatched) {
           throw new CredentialsSignin({ cause: "Invalid email or password." });
         }
@@ -129,7 +129,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async signIn({ user, account, profile, email }) {
-      console.log("profile", profile);
+      //console.log("profile", profile);
       if (account?.provider === "google") {
         try {
           //console.log("User in google singin", user);
@@ -139,10 +139,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           const alredyExist = await User.findOne({ email });
           if (!alredyExist) {
-            await User.create({ email, username: name, googleId: id });
-          } else {
-            return true;
+            await User.create({
+              email,
+              username: name,
+              googleId: id,
+              isVerified: true,
+            });
           }
+          return true;
         } catch (error) {
           console.error("Detailed AuthError:", error);
           throw new AuthError(

@@ -65,6 +65,7 @@ export default function Page() {
               } else {
                 toast.success("Verification mail has been sent!", {
                   position: "top-center",
+                  autoClose: 3000,
                 });
 
                 await verificationEmail(email);
@@ -134,7 +135,7 @@ export default function Page() {
         </form>
         <div className="mb-2">or</div>
         <form
-          className="bg-black text-white text-center  w-full  rounded-md flex justify-center"
+          className="bg-black text-white text-center  w-full p-1 rounded-md flex justify-center"
           action={googleLoginAction}>
           <Image
             className="mr-3 p-1"
