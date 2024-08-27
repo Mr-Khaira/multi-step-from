@@ -16,7 +16,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from "./models/UserModel";
 import { compare } from "bcryptjs";
-import connectToDb from "./helpers/utils";
+import connectToDb from "./helpers/connectToDB";
 // CredentialsProvider for users who do not want to use social media.
 
 export const { handlers, signIn, signOut, auth } = NextAuth({

@@ -1,4 +1,4 @@
-import connectToDb from "@/helpers/utils";
+import connectToDb from "@/helpers/connectToDB";
 import { User } from "@/models/UserModel";
 import jwt from "jsonwebtoken";
 import { permanentRedirect, redirect } from "next/navigation";
