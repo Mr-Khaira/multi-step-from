@@ -1,4 +1,6 @@
+"use server";
 import mongoose from "mongoose";
+//Dynamic Code Evaluation (e. g. 'eval', 'new Function', 'WebAssembly.compile') not allowed in Edge Runtime.
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
