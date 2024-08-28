@@ -156,7 +156,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           await connectToDb();
 
+          let sessionUsername = name;
+
           const alredyExist = await User.findOne({ email });
+          console.log("alredyExist", alredyExist);
           if (!alredyExist) {
             await User.create({
               email,
@@ -164,7 +167,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               googleId: id,
               isVerified: true,
             });
+          } else {
+            // If user alredy exist with the email and now has signed in with
+            // google id, then the username from the Db shall be displayed,
+            // not the one from the gmail.
+            sessionUsername = alredyExist.username;
+            if (!alredyExist.googleId) {
+              await User.updateOne({ email }, { googleId: id });
+            }
           }
+          user.name = sessionUsername;
 
           return true;
         } catch (error) {
