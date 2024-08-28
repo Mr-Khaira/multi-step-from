@@ -30,7 +30,7 @@ export default async function verificationEmail(email) {
       to: email,
       subject: "Email Verification",
       text: `Please verify your email by clicking on the following link: 
-             https://multi-step-from-snowy.vercel.app/login/api/auth/emailverification?token=${encoder(
+             https://multi-step-from-snowy.vercel.app/api/auth/emailverification?token=${encoder(
                email
              )}`,
     };
