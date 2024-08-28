@@ -51,5 +51,5 @@ export const GET = async (req) => {
       error: "Internal Server Error in emailverification route.",
     });
   }
-  redirect("http://localhost:3000/login");
+  redirect("https://multi-step-from-snowy.vercel.app/login");
 };

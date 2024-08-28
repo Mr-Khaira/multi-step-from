@@ -21,6 +21,24 @@ import connectToDb from "./helpers/connectToDB";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
+  /*
+  Session Management Strategies in NextAuth.js
+
+    Database Sessions (default):
+        The session information is stored in a database. This includes storing a 
+        session ID in a cookie on the client, while the actual session data is stored
+        on the server in the database.
+
+        Use Case: This is useful when you need to store extensive session data or if
+        you want the ability to manage and invalidate sessions server-side.
+
+    JWT Sessions:
+        Behavior: Session data is stored entirely in a JWT that is sent to the client
+        as a cookie. The session is stateless, meaning that no session data is stored
+        on the server—everything is stored in the token.
+         This is useful for stateless applications or when you prefer not to use a 
+        database for session management, this makes deployment easy. 
+  */
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,

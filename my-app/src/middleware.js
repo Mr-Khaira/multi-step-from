@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function middleware(request) {
   //console.log("Akdbambakdam", request);
 
-  const session = cookies().get("authjs.session-token");
+  const session = cookies().get("__Secure-authjs.session-token");
 
   //   console.log(session);
   if (session) {
