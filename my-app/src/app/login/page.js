@@ -6,6 +6,7 @@ import Link from "next/link";
 import { emailErrorCheck } from "@/helpers/utils";
 import LoginHandler from "../actions/loginAction";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import googleLoginAction from "../actions/googleLoginAction";
 import Image from "next/image";

@@ -1,7 +1,7 @@
 import connectToDb from "@/helpers/connectToDB";
 import { User } from "@/models/UserModel";
 import jwt from "jsonwebtoken";
-import { permanentRedirect, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export const GET = async (req) => {
   const searchParams = req.nextUrl.searchParams;

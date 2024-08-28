@@ -6,9 +6,7 @@
 
 .input {
   padding: 5px;
-  border-color: black;
-  border-width: 1px;
-  border-style: line;
+  border: 1px solid #000;
   border-radius: 0.375rem;
 }
 

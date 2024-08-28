@@ -20,6 +20,7 @@ import connectToDb from "./helpers/connectToDB";
 // CredentialsProvider for users who do not want to use social media.
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  session: { strategy: "jwt" },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -146,6 +147,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               isVerified: true,
             });
           }
+
           return true;
         } catch (error) {
           console.error("Detailed AuthError:", error);

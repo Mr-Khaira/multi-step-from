@@ -15,7 +15,7 @@ These is discussed here only for the sake of knowledge.
 export default async function Home() {
   const session = await auth();
   const user = session?.user;
-  console.log(session);
+  //console.log(session);
   // This is how it would be done on the backend.
   // const cookiees = cookies().get("authjs.session-token"); // Getting the cookie.
   // // Once we have the cookie we will decode it's value.

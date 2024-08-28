@@ -11,12 +11,16 @@ export default async function Navbar() {
       <Link href={"/"} className="p-1 self-start w-1/2">
         <button className="underline p-1">Complete oAuth</button>
       </Link>
-      <Link href={"/login"}>
-        <button className="underline p-1">Login</button>
-      </Link>
-      <Link href={"/signup"}>
-        <button className="underline p-1">Signup</button>
-      </Link>
+      {!user && (
+        <>
+          <Link href={"/login"}>
+            <button className="underline p-1">Login</button>
+          </Link>
+          <Link href={"/signup"}>
+            <button className="underline p-1">Signup</button>
+          </Link>
+        </>
+      )}
       <div>
         {user && (
           <form action={signoutAction}>
