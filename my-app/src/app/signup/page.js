@@ -64,10 +64,13 @@ export default function Page() {
                   autoClose: 3000,
                 });
               } else {
-                toast.success("Verification mail has been sent!", {
-                  position: "top-center",
-                  autoClose: 3000,
-                });
+                toast.success(
+                  "Verification mail has been sent, link expises in 10mins",
+                  {
+                    position: "top-center",
+                    autoClose: 3000,
+                  }
+                );
 
                 await verificationEmail(email);
 

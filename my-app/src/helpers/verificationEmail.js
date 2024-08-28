@@ -8,7 +8,7 @@ function encoder(email) {
     timestamp: Date.now(), // Adding a timestamp to make it more unique
   };
   const secret = process.env.EMAIL_ENCRYPT;
-  return jwt.sign(payload, secret, { expiresIn: "5m" });
+  return jwt.sign(payload, secret, { expiresIn: "10m" });
 }
 
 export default async function verificationEmail(email) {

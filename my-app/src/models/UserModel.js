@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
 userSchema.index(
   { createdAt: 1 },
   {
-    expireAfterSeconds: 300,
+    expireAfterSeconds: 600,
     partialFilterExpression: { isVerified: false },
   }
 );
