@@ -22,3 +22,27 @@ Visit the live site: https://multi-step-from-snowy.vercel.app/
 Note: Response times might be slightly delayed since it's hosted on Vercel's free plan.
 
 I'd love to hear your thoughts and feedback! 🙏
+
+Password validation:-
+<img width="959" alt="pasword validaton 8" src="https://github.com/user-attachments/assets/7fa352f6-a643-49c8-9675-5e791be34353">
+
+Verified:-
+<img width="824" alt="isVerifiedTrue" src="https://github.com/user-attachments/assets/0e49cf91-4457-4eaa-bd23-efd61a1dd0ef">
+
+Email message:-
+<img width="954" alt="email sent message" src="https://github.com/user-attachments/assets/8c34c2cb-95f4-40a2-b5fd-4f9fdad9ad4d">
+
+Successful login :-
+<img width="959" alt="successful login" src="https://github.com/user-attachments/assets/a679226a-3e25-4dc7-a821-df8f24c3e2d0">
+
+Unverified email :-
+<img width="958" alt="unverified email" src="https://github.com/user-attachments/assets/d0c87423-e92a-4e60-b827-ca5b20d6a7e0">
+
+Scuuessful login with google :-
+<img width="959" alt="successful login with G" src="https://github.com/user-attachments/assets/0d523f18-eccd-4491-afaf-f545b9d4990c">
+
+Verification link :-
+<img width="959" alt="verification link" src="https://github.com/user-attachments/assets/493b69f7-3d5e-48a4-bb30-30189cd5ad05">
+
+Unverified email in the database :-
+<img width="813" alt="UNVERIFIED EMIAL IN dB" src="https://github.com/user-attachments/assets/4a5e84cf-f81c-4ab4-a500-a07d5c031086">
